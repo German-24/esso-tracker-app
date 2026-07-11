@@ -996,6 +996,38 @@ function saveProduct(e) {
   renderTable();
 }
 
+// ==========================================
+// FIXED: Added the missing saveScannedProduct function
+// ==========================================
+function saveScannedProduct(e) {
+  e.preventDefault();
+  const data = {
+    id: Date.now(),
+    upc: document.getElementById('scannedUPC').value,
+    name: document.getElementById('sName').value,
+    brand: document.getElementById('sBrand').value,
+    category: document.getElementById('sCategory').value,
+    grams: parseFloat(document.getElementById('sGrams').value),
+    unit: document.getElementById('sUnit').value,
+    qty: parseInt(document.getElementById('sQty').value),
+    price: parseFloat(document.getElementById('sPrice').value),
+    expiry: document.getElementById('sExpiry').value,
+    notes: document.getElementById('sNotes').value
+  };
+
+  // Basic validation
+  if (!data.name || !data.brand || !data.category || isNaN(data.grams) || isNaN(data.qty) || isNaN(data.price) || !data.expiry) {
+    showToast('⚠️ Please fill all required fields');
+    return;
+  }
+
+  products.push(data);
+  saveToStorage();
+  closeScannedProductModal();
+  renderTable();
+  showToast('✅ Scanned product added successfully!');
+}
+
 function editProduct(id) { openModal(id); }
 function deleteProduct(id) {
   if (confirm('Are you sure you want to delete this product?')) {
