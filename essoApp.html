@@ -72,8 +72,12 @@
     background: #3b82f6 !important; color: white !important; border: none !important;
     padding: 8px 16px !important; border-radius: 6px !important; cursor: pointer !important; margin: 4px !important;
   }
-  .product-thumb { max-width: 100px; max-height: 100px; object-fit: contain; border-radius: 8px; background: white; border: 2px solid #e5e7eb; padding: 4px; }
   .product-thumb-large { max-width: 120px; max-height: 120px; object-fit: contain; border-radius: 12px; background: white; border: 2px solid #a78bfa; padding: 6px; }
+  
+  /* Quantity input group with unit selector */
+  .qty-group { display: flex; gap: 8px; }
+  .qty-group .form-input { flex: 1; }
+  .qty-group select { width: 80px !important; flex: none; }
 </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -177,7 +181,7 @@
             <th class="px-4 py-3 text-left">Product Name</th>
             <th class="px-4 py-3 text-left">Brand</th>
             <th class="px-4 py-3 text-left">Category</th>
-            <th class="px-4 py-3 text-right">Grams</th>
+            <th class="px-4 py-3 text-right">Size</th>
             <th class="px-4 py-3 text-right">Qty</th>
             <th class="px-4 py-3 text-right">Unit (RM)</th>
             <th class="px-4 py-3 text-right">Total (RM)</th>
@@ -240,8 +244,16 @@
           </select>
         </div>
         <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-1">Grams (g) *</label>
-          <input type="number" id="pGrams" required min="1" class="form-input" />
+          <label class="block text-sm font-semibold text-gray-700 mb-1">Size *</label>
+          <div class="qty-group">
+            <input type="number" id="pGrams" required min="1" step="0.01" class="form-input" placeholder="Amount" />
+            <select id="pUnit" required class="form-input">
+              <option value="g">g</option>
+              <option value="kg">kg</option>
+              <option value="ml">ml</option>
+              <option value="L">L</option>
+            </select>
+          </div>
         </div>
         <div>
           <label class="block text-sm font-semibold text-gray-700 mb-1">Quantity *</label>
@@ -350,36 +362,32 @@
             </select>
           </div>
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-1">Grams (g) *</label>
-            <input type="number" id="sGrams" required min="1" class="form-input" />
-          </div>
-          <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-1">How many? (Quantity) *</label>
-            <input type="number" id="sQty" required min="1" class="form-input" oninput="updateTotalPreview()" />
-          </div>
-          <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-1">Unit Price (RM) *</label>
-            <input type="number" id="sPrice" required min="0" step="0.01" class="form-input" oninput="updateTotalPreview()" />
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Size *</label>
+            <div class="qty-group">
+              <input type="number" id="sGrams" required min="1" step="0.01" class="form-input" placeholder="Amount" />
+              <select id="sUnit" required class="form-input">
+                <option value="g">g</option>
+                <option value="kg">kg</option>
+                <option value="ml">ml</option>
+                <option value="L">L</option>
+              </select>
+            </div>
           </div>
           <div class="md:col-span-2">
-            <label class="block text-sm font-semibold text-gray-700 mb-1">When does it expire? *</label>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Expiry Date (auto: today) *</label>
             <input type="date" id="sExpiry" required class="form-input" />
             <div class="flex gap-2 mt-2 flex-wrap">
-              <button type="button" onclick="setQuickExpiry(7)" class="text-xs bg-red-100 text-red-700 px-3 py-1 rounded hover:bg-red-200 font-semibold">7 days</button>
-              <button type="button" onclick="setQuickExpiry(30)" class="text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded hover:bg-yellow-200 font-semibold">30 days</button>
-              <button type="button" onclick="setQuickExpiry(90)" class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded hover:bg-green-200 font-semibold">90 days</button>
-              <button type="button" onclick="setQuickExpiry(180)" class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded hover:bg-blue-200 font-semibold">6 months</button>
-              <button type="button" onclick="setQuickExpiry(365)" class="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded hover:bg-purple-200 font-semibold">1 year</button>
+              <button type="button" onclick="setQuickExpiry(0)" class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded hover:bg-gray-200 font-semibold">Today</button>
+              <button type="button" onclick="setQuickExpiry(-1)" class="text-xs bg-red-100 text-red-700 px-3 py-1 rounded hover:bg-red-200 font-semibold">Yesterday</button>
+              <button type="button" onclick="setQuickExpiry(-3)" class="text-xs bg-red-100 text-red-700 px-3 py-1 rounded hover:bg-red-200 font-semibold">3 days ago</button>
+              <button type="button" onclick="setQuickExpiry(-7)" class="text-xs bg-red-100 text-red-700 px-3 py-1 rounded hover:bg-red-200 font-semibold">1 week ago</button>
+              <button type="button" onclick="setQuickExpiry(-30)" class="text-xs bg-red-100 text-red-700 px-3 py-1 rounded hover:bg-red-200 font-semibold">1 month ago</button>
             </div>
           </div>
           <div class="md:col-span-2">
             <label class="block text-sm font-semibold text-gray-700 mb-1">Notes (Optional)</label>
             <textarea id="sNotes" rows="2" class="form-input" placeholder="Any extra info..."></textarea>
           </div>
-        </div>
-        <div class="bg-blue-50 border border-blue-200 p-3 rounded-lg flex justify-between items-center">
-          <span class="text-sm font-semibold text-gray-700">Total Value:</span>
-          <span class="text-xl font-bold text-blue-700" id="totalPreview">RM 0.00</span>
         </div>
         <div class="flex gap-3 pt-3 flex-wrap">
           <button type="submit" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2.5 rounded-lg font-semibold transition min-w-[120px]">💾 Save Product</button>
@@ -402,6 +410,14 @@ let currentScannedBarcode = '';
 
 function saveToStorage() { localStorage.setItem('essoProducts', JSON.stringify(products)); }
 
+function getTodayISO() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 function getStatus(expiryDate) {
   const today = new Date(); today.setHours(0,0,0,0);
   const expiry = new Date(expiryDate);
@@ -411,32 +427,33 @@ function getStatus(expiryDate) {
   return { status: 'FRESH', days: diffDays };
 }
 
-// ============ PARSE QUANTITY ============
-function parseQuantity(quantityStr) {
-  if (!quantityStr) return '';
+// ============ PARSE QUANTITY + DETECT UNIT ============
+function parseQuantityWithUnit(quantityStr) {
+  if (!quantityStr) return { value: '', unit: 'g' };
   const cleaned = String(quantityStr).toLowerCase().replace(/\s+/g, ' ');
   const match = cleaned.match(/(\d+(?:[.,]\d+)?)\s*(g|kg|ml|l|oz|lb|cl|dl)\b/);
   if (match) {
     let value = parseFloat(match[1].replace(',', '.'));
-    const unit = match[2].toLowerCase();
-    if (unit === 'kg') value *= 1000;
-    else if (unit === 'l') value *= 1000;
-    else if (unit === 'oz') value *= 28.35;
-    else if (unit === 'lb') value *= 453.59;
-    else if (unit === 'cl') value *= 10;
-    else if (unit === 'dl') value *= 100;
-    return Math.round(value);
+    let unit = match[2].toLowerCase();
+    // Convert to user-friendly unit
+    if (unit === 'kg') { value *= 1000; unit = 'g'; }
+    else if (unit === 'l') { value *= 1000; unit = 'ml'; }
+    else if (unit === 'oz') { value = Math.round(value * 28.35); unit = 'g'; }
+    else if (unit === 'lb') { value = Math.round(value * 453.59); unit = 'g'; }
+    else if (unit === 'cl') { value *= 10; unit = 'ml'; }
+    else if (unit === 'dl') { value *= 100; unit = 'ml'; }
+    return { value: Math.round(value * 100) / 100, unit };
   }
-  return '';
+  return { value: '', unit: 'g' };
 }
 
 // ============ MAP CATEGORY ============
 function mapCategory(apiCategories, apiProductName) {
   const text = ((apiCategories || '') + ' ' + (apiProductName || '')).toLowerCase();
   if (text.match(/noodle|pasta|instant|maggi|vermicelli|bihun|mee/)) return 'Noodles';
-  if (text.match(/beverage|drink|soda|juice|water|cola|tea|coffee|mineral|syrup/)) return 'Beverages';
+  if (text.match(/beverage|drink|soda|juice|water|cola|tea|coffee|mineral|syrup|oil/)) return 'Beverages';
   if (text.match(/snack|chip|crisp|biscuit|cookie|wafer|cracker/)) return 'Snacks';
-  if (text.match(/oil|cooking|flour|sugar|salt|rice/)) return 'Cooking';
+  if (text.match(/cooking|flour|sugar|salt|rice/)) return 'Cooking';
   if (text.match(/sauce|ketchup|soy|mayo|chili|vinegar|chilli/)) return 'Sauces';
   if (text.match(/dairy|milk|yogurt|yoghurt|cheese|butter|cream/)) return 'Dairy';
   if (text.match(/frozen|ice cream|ice-cream/)) return 'Frozen';
@@ -464,38 +481,42 @@ async function lookupProductAPI(barcode) {
 }
 
 function applyProductData(product) {
-  // Name - try multiple fields
   const name = product.product_name || product.product_name_en || '';
-  // Brand
   let brand = '';
   if (product.brands) {
     brand = product.brands.split(',')[0].trim();
   } else if (product.brands_tags && product.brands_tags.length > 0) {
     brand = product.brands_tags[0].replace(/^en:/, '').replace(/-/g, ' ');
   }
-  // Categories
   const apiCategories = product.categories || (product.categories_tags ? product.categories_tags.join(',') : '');
   const category = mapCategory(apiCategories, name);
-  // Quantity (grams/ml) - try multiple fields
-  let grams = parseQuantity(product.quantity || '');
-  if (!grams && product.product_quantity) {
+  
+  // Parse quantity with unit detection
+  let qtyData = parseQuantityWithUnit(product.quantity || '');
+  if (!qtyData.value && product.product_quantity) {
     const unit = product.product_quantity_unit || 'g';
-    if (unit === 'g' || unit === 'ml') grams = parseInt(product.product_quantity);
+    let value = parseFloat(product.product_quantity);
+    if (unit === 'g' || unit === 'ml') {
+      qtyData = { value: value, unit: unit };
+    }
   }
-  // Image
+  
   const imageUrl = product.image_url || product.image_front_url || product.image_small_url || product.image_thumb_url || '';
 
   if (name) document.getElementById('sName').value = name;
   if (brand) document.getElementById('sBrand').value = brand;
   if (category) document.getElementById('sCategory').value = category;
-  if (grams) document.getElementById('sGrams').value = grams;
+  if (qtyData.value) {
+    document.getElementById('sGrams').value = qtyData.value;
+    document.getElementById('sUnit').value = qtyData.unit;
+  }
   if (imageUrl) {
     const img = document.getElementById('productThumb');
     img.src = imageUrl;
     img.classList.remove('hidden');
     document.getElementById('productThumbPlaceholder').classList.add('hidden');
   }
-  return { name, brand, category, grams, imageUrl };
+  return { name, brand, category, value: qtyData.value, unit: qtyData.unit, imageUrl };
 }
 
 function resetScannedForm() {
@@ -503,12 +524,9 @@ function resetScannedForm() {
   document.getElementById('sBrand').value = '';
   document.getElementById('sCategory').value = '';
   document.getElementById('sGrams').value = '';
-  document.getElementById('sPrice').value = '';
-  document.getElementById('sQty').value = 1;
+  document.getElementById('sUnit').value = 'g';
   document.getElementById('sNotes').value = '';
-  const nextYear = new Date();
-  nextYear.setFullYear(nextYear.getFullYear() + 1);
-  document.getElementById('sExpiry').value = nextYear.toISOString().split('T')[0];
+  document.getElementById('sExpiry').value = getTodayISO();
   const img = document.getElementById('productThumb');
   img.classList.add('hidden');
   img.removeAttribute('src');
@@ -541,7 +559,7 @@ function renderTable() {
           <td class="px-4 py-3 font-semibold text-gray-800">${p.name}</td>
           <td class="px-4 py-3 text-gray-600">${p.brand}</td>
           <td class="px-4 py-3"><span class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs whitespace-nowrap inline-block">${p.category}</span></td>
-          <td class="px-4 py-3 text-right text-gray-700">${p.grams}g</td>
+          <td class="px-4 py-3 text-right text-gray-700 whitespace-nowrap">${p.grams} ${p.unit || 'g'}</td>
           <td class="px-4 py-3 text-right font-semibold">${p.qty}</td>
           <td class="px-4 py-3 text-right text-gray-700">${p.price.toFixed(2)}</td>
           <td class="px-4 py-3 text-right font-bold text-blue-700">${(p.qty * p.price).toFixed(2)}</td>
@@ -609,6 +627,7 @@ function openModal(id = null) {
     document.getElementById('pBrand').value = p.brand;
     document.getElementById('pCategory').value = p.category;
     document.getElementById('pGrams').value = p.grams;
+    document.getElementById('pUnit').value = p.unit || 'g';
     document.getElementById('pQty').value = p.qty;
     document.getElementById('pPrice').value = p.price;
     document.getElementById('pExpiry').value = p.expiry;
@@ -616,6 +635,7 @@ function openModal(id = null) {
   } else {
     document.getElementById('productForm').reset();
     document.getElementById('editId').value = '';
+    document.getElementById('pUnit').value = 'g';
   }
 }
 function closeModal() { document.getElementById('productModal').classList.remove('active'); }
@@ -628,7 +648,8 @@ function saveProduct(e) {
     name: document.getElementById('pName').value,
     brand: document.getElementById('pBrand').value,
     category: document.getElementById('pCategory').value,
-    grams: parseInt(document.getElementById('pGrams').value),
+    grams: parseFloat(document.getElementById('pGrams').value),
+    unit: document.getElementById('pUnit').value,
     qty: parseInt(document.getElementById('pQty').value),
     price: parseFloat(document.getElementById('pPrice').value),
     expiry: document.getElementById('pExpiry').value,
@@ -724,7 +745,6 @@ function handleManualBarcode() {
   handleScannedBarcode(code);
 }
 
-// ============ HANDLE SCANNED BARCODE - THE KEY FUNCTION ============
 async function handleScannedBarcode(barcode) {
   lastScannedCode = barcode;
   currentScannedBarcode = barcode;
@@ -735,7 +755,6 @@ async function handleScannedBarcode(barcode) {
   const infoEl = document.getElementById('scannedProductInfo');
   infoEl.innerHTML = '<span class="text-blue-600">🔍 Searching databases...</span>';
 
-  // Show modal first
   closeScannerModal();
   setTimeout(() => {
     document.getElementById('scannedProductModal').classList.add('active');
@@ -743,18 +762,17 @@ async function handleScannedBarcode(barcode) {
   }, 300);
 
   try {
-    // Call Open Food Facts API
     const product = await lookupProductAPI(barcode);
     document.getElementById('apiLoading').classList.add('hidden');
 
     if (product) {
       const data = applyProductData(product);
       if (data.name) {
-        infoEl.innerHTML = '<span class="text-green-600 font-semibold">✅ Found in Open Food Facts!</span><br><span class="text-xs text-gray-600">Auto-filled. Add quantity, price & expiry.</span>';
+        infoEl.innerHTML = '<span class="text-green-600 font-semibold">✅ Found in Open Food Facts!</span><br><span class="text-xs text-gray-600">Auto-filled. Confirm size & expiry.</span>';
         showToast('✅ Found: ' + data.name);
       } else {
         infoEl.innerHTML = '<span class="text-yellow-600 font-semibold">⚠️ Product found but no name.</span><br><span class="text-xs text-gray-600">Please enter details manually.</span>';
-        showToast('⚠️ Found product, but no name. Enter manually.');
+        showToast('⚠️ Found product, but no name.');
       }
     } else {
       infoEl.innerHTML = '<span class="text-orange-600 font-semibold">⚠️ Product not in database.</span><br><span class="text-xs text-gray-600">You can add it to Open Food Facts at world.openfoodfacts.org. For now, enter details manually.</span>';
@@ -766,8 +784,7 @@ async function handleScannedBarcode(barcode) {
     console.error(err);
   }
 
-  setTimeout(() => document.getElementById('sQty').focus(), 400);
-  updateTotalPreview();
+  setTimeout(() => document.getElementById('sGrams').focus(), 400);
 }
 
 async function retryAPILookup() {
@@ -789,7 +806,6 @@ async function retryAPILookup() {
     infoEl.innerHTML = '<span class="text-orange-600 font-semibold">⚠️ Still not found.</span>';
     showToast('⚠️ Product not found anywhere');
   }
-  updateTotalPreview();
 }
 
 function closeScannedProductModal() {
@@ -799,47 +815,22 @@ function closeScannedProductModal() {
   lastScannedCode = '';
   currentScannedBarcode = '';
 }
-function setQuickExpiry(days) {
-  const futureDate = new Date();
-  futureDate.setDate(futureDate.getDate() + days);
-  document.getElementById('sExpiry').value = futureDate.toISOString().split('T')[0];
-}
-function updateTotalPreview() {
-  const qty = parseFloat(document.getElementById('sQty').value) || 0;
-  const price = parseFloat(document.getElementById('sPrice').value) || 0;
-  document.getElementById('totalPreview').textContent = 'RM ' + (qty * price).toFixed(2);
-}
-document.addEventListener('input', (e) => {
-  if (e.target.id === 'sQty' || e.target.id === 'sPrice') updateTotalPreview();
-});
 
-function saveScannedProduct(e) {
-  e.preventDefault();
-  const data = {
-    id: Date.now(),
-    upc: document.getElementById('scannedUPC').value,
-    name: document.getElementById('sName').value,
-    brand: document.getElementById('sBrand').value,
-    category: document.getElementById('sCategory').value,
-    grams: parseInt(document.getElementById('sGrams').value),
-    qty: parseInt(document.getElementById('sQty').value),
-    price: parseFloat(document.getElementById('sPrice').value),
-    expiry: document.getElementById('sExpiry').value,
-    notes: document.getElementById('sNotes').value
-  };
-  products.push(data);
-  saveToStorage();
-  closeScannedProductModal();
-  renderTable();
-  showToast('✅ Product added: ' + data.name);
+function setQuickExpiry(daysOffset) {
+  const d = new Date();
+  d.setDate(d.getDate() + daysOffset);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  document.getElementById('sExpiry').value = `${year}-${month}-${day}`;
 }
 
 function exportCSV() {
   if (products.length === 0) { showToast('⚠️ No data to export'); return; }
-  let csv = 'No,UPC,Product Name,Brand,Category,Grams,Quantity,Unit Price,Total Value,Expiry Date,Days Expired,Status,Notes\n';
+  let csv = 'No,UPC,Product Name,Brand,Category,Size,Qty,Unit Price,Total Value,Expiry Date,Days,Status,Notes\n';
   products.forEach((p, i) => {
     const s = getStatus(p.expiry);
-    csv += `${i+1},"${p.upc||''}","${p.name}","${p.brand}","${p.category}",${p.grams},${p.qty},${p.price},${(p.qty*p.price).toFixed(2)},${p.expiry},${s.days},${s.status},"${p.notes||''}"\n`;
+    csv += `${i+1},"${p.upc||''}","${p.name}","${p.brand}","${p.category}","${p.grams} ${p.unit||'g'}",${p.qty},${p.price},${(p.qty*p.price).toFixed(2)},${p.expiry},${s.days},${s.status},"${p.notes||''}"\n`;
   });
   const blob = new Blob([csv], { type: 'text/csv' });
   const url = URL.createObjectURL(blob);
@@ -852,21 +843,21 @@ function exportCSV() {
 function loadSampleData() {
   const today = new Date();
   const samples = [
-    { name: 'Maggi Curry', brand: 'Maggi', category: 'Noodles', grams: 75, qty: 50, price: 1.50, daysFromNow: -45, upc: '9556001234567' },
-    { name: 'Coca-Cola Original', brand: 'Coca-Cola', category: 'Beverages', grams: 325, qty: 24, price: 2.00, daysFromNow: -10, upc: '9556001234569' },
-    { name: "Lay's Classic", brand: "Lay's", category: 'Snacks', grams: 50, qty: 30, price: 2.50, daysFromNow: 15, upc: '9556001234574' },
-    { name: 'Milo Powder', brand: 'Nestle', category: 'Beverages', grams: 1000, qty: 10, price: 25.00, daysFromNow: 90, upc: '9556001234572' },
-    { name: 'Oreo Original', brand: 'Oreo', category: 'Snacks', grams: 137, qty: 40, price: 3.50, daysFromNow: -60, upc: '9556001234576' },
-    { name: 'Nescafe Original', brand: 'Nestle', category: 'Beverages', grams: 200, qty: 15, price: 12.00, daysFromNow: 5, upc: '9556001234573' },
-    { name: 'Saji Cooking Oil', brand: 'Saji', category: 'Cooking', grams: 1000, qty: 8, price: 18.00, daysFromNow: 120, upc: '9556001234579' },
-    { name: 'Maggi Soy Sauce', brand: 'Maggi', category: 'Sauces', grams: 340, qty: 20, price: 5.00, daysFromNow: -5, upc: '9556001234580' },
-    { name: 'Dutch Lady Milk', brand: 'Dutch Lady', category: 'Dairy', grams: 250, qty: 12, price: 4.50, daysFromNow: 7, upc: '9556001234578' },
-    { name: 'KitKat 4-Finger', brand: 'Nestle', category: 'Confectionery', grams: 35, qty: 60, price: 1.80, daysFromNow: -20, upc: '9556001234581' },
+    { name: 'Maggi Curry', brand: 'Maggi', category: 'Noodles', grams: 75, unit: 'g', qty: 50, price: 1.50, daysFromNow: -45, upc: '9556001234567' },
+    { name: 'Coca-Cola Original', brand: 'Coca-Cola', category: 'Beverages', grams: 325, unit: 'ml', qty: 24, price: 2.00, daysFromNow: -10, upc: '9556001234569' },
+    { name: "Lay's Classic", brand: "Lay's", category: 'Snacks', grams: 50, unit: 'g', qty: 30, price: 2.50, daysFromNow: 15, upc: '9556001234574' },
+    { name: 'Milo Powder', brand: 'Nestle', category: 'Beverages', grams: 1000, unit: 'g', qty: 10, price: 25.00, daysFromNow: 90, upc: '9556001234572' },
+    { name: 'Cooking Oil', brand: 'Saji', category: 'Cooking', grams: 1, unit: 'L', qty: 8, price: 18.00, daysFromNow: 120, upc: '9556001234579' },
+    { name: 'Soy Sauce', brand: 'Maggi', category: 'Sauces', grams: 340, unit: 'ml', qty: 20, price: 5.00, daysFromNow: -5, upc: '9556001234580' },
+    { name: 'Fresh Milk', brand: 'Dutch Lady', category: 'Dairy', grams: 1, unit: 'L', qty: 12, price: 7.50, daysFromNow: 7, upc: '9556001234578' },
+    { name: 'Mineral Water', brand: 'Spritzer', category: 'Beverages', grams: 1.5, unit: 'L', qty: 24, price: 1.50, daysFromNow: 180, upc: '9556001234585' },
+    { name: 'Orange Juice', brand: 'F&N', category: 'Beverages', grams: 1, unit: 'L', qty: 10, price: 6.50, daysFromNow: -3, upc: '9556001234586' },
+    { name: 'KitKat', brand: 'Nestle', category: 'Confectionery', grams: 35, unit: 'g', qty: 60, price: 1.80, daysFromNow: -20, upc: '9556001234581' },
   ];
   products = samples.map((s, i) => {
     const expiry = new Date(today);
     expiry.setDate(expiry.getDate() + s.daysFromNow);
-    return { id: Date.now() + i, upc: s.upc, name: s.name, brand: s.brand, category: s.category, grams: s.grams, qty: s.qty, price: s.price, expiry: expiry.toISOString().split('T')[0], notes: 'Sample data' };
+    return { id: Date.now() + i, upc: s.upc, name: s.name, brand: s.brand, category: s.category, grams: s.grams, unit: s.unit, qty: s.qty, price: s.price, expiry: expiry.toISOString().split('T')[0], notes: 'Sample data' };
   });
   saveToStorage();
   renderTable();
