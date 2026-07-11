@@ -76,255 +76,24 @@
   .qty-group { display: flex; gap: 8px; }
   .qty-group .form-input { flex: 1; }
   .qty-group select { width: 80px !important; flex: none; }
-
-  /* ============ ANIMATED FOOTER - MADE BY GERMAN ============ */
-  .footer-animated {
-    position: relative;
-    padding: 50px 20px;
-    text-align: center;
-    overflow: hidden;
-    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
-    margin-top: 40px;
-  }
-
-  /* Floating particles background */
-  .footer-particles {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-
-  .particle {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.6;
-    animation: floatUp 8s infinite;
-  }
-
-  .particle:nth-child(1) { left: 10%; width: 6px; height: 6px; background: #fbbf24; animation-delay: 0s; animation-duration: 7s; }
-  .particle:nth-child(2) { left: 20%; width: 4px; height: 4px; background: #ec4899; animation-delay: 1s; animation-duration: 9s; }
-  .particle:nth-child(3) { left: 30%; width: 8px; height: 8px; background: #06b6d4; animation-delay: 2s; animation-duration: 6s; }
-  .particle:nth-child(4) { left: 40%; width: 5px; height: 5px; background: #a78bfa; animation-delay: 0.5s; animation-duration: 8s; }
-  .particle:nth-child(5) { left: 50%; width: 7px; height: 7px; background: #34d399; animation-delay: 1.5s; animation-duration: 10s; }
-  .particle:nth-child(6) { left: 60%; width: 4px; height: 4px; background: #f97316; animation-delay: 2.5s; animation-duration: 7s; }
-  .particle:nth-child(7) { left: 70%; width: 6px; height: 6px; background: #8b5cf6; animation-delay: 3s; animation-duration: 9s; }
-  .particle:nth-child(8) { left: 80%; width: 5px; height: 5px; background: #facc15; animation-delay: 0.8s; animation-duration: 6s; }
-  .particle:nth-child(9) { left: 90%; width: 7px; height: 7px; background: #22d3ee; animation-delay: 2.2s; animation-duration: 8s; }
-
-  @keyframes floatUp {
-    0% {
-      transform: translateY(120px) translateX(0) scale(0.5);
-      opacity: 0;
-    }
-    20% { opacity: 0.8; }
-    50% {
-      transform: translateY(-50px) translateX(30px) scale(1);
-      opacity: 0.6;
-    }
-    100% {
-      transform: translateY(-150px) translateX(-20px) scale(0.3);
-      opacity: 0;
-    }
-  }
-
-  /* Glowing orbs */
-  .glow-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(40px);
-    opacity: 0.4;
-    animation: pulse 4s ease-in-out infinite;
-  }
-  .glow-orb.orb-1 {
-    width: 200px; height: 200px;
-    background: #8b5cf6;
-    top: -50px; left: 10%;
-    animation-delay: 0s;
-  }
-  .glow-orb.orb-2 {
-    width: 250px; height: 250px;
-    background: #ec4899;
-    bottom: -80px; right: 15%;
-    animation-delay: 1.5s;
-  }
-  .glow-orb.orb-3 {
-    width: 180px; height: 180px;
-    background: #06b6d4;
-    top: 30%; right: 5%;
-    animation-delay: 2.5s;
-  }
-
-  /* Main content */
-  .footer-content {
-    position: relative;
-    z-index: 10;
-  }
-
-  /* Animated Made By German Title */
-  .made-by-title {
-    font-size: 14px;
-    color: #94a3b8;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    margin-bottom: 15px;
-    font-weight: 600;
-    animation: fadeInDown 1s ease;
-  }
-
-  @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* German Name - Main Animation */
-  .german-name-wrapper {
-    display: inline-block;
-    position: relative;
-    margin: 0 auto;
-  }
-
-  .german-name {
-    font-size: 64px;
-    font-weight: 900;
-    letter-spacing: 4px;
-    background: linear-gradient(135deg, #fbbf24 0%, #f97316 25%, #ec4899 50%, #8b5cf6 75%, #06b6d4 100%);
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 80px rgba(139, 92, 246, 0.5);
-    animation: gradientMove 4s ease infinite, scalePulse 2s ease-in-out infinite;
-    display: inline-block;
-    position: relative;
-    z-index: 2;
-  }
-
-  @keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  @keyframes scalePulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-  }
-
-  /* Glowing ring around name */
-  .german-name::before {
-    content: 'GERMAN';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: linear-gradient(135deg, #fbbf24, #ec4899, #8b5cf6);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: blur(20px);
-    opacity: 0.6;
-    z-index: -1;
-    animation: gradientMove 4s ease infinite;
-  }
-
-  /* Subtitle */
-  .german-subtitle {
-    font-size: 16px;
-    color: #cbd5e1;
-    margin-top: 15px;
-    font-weight: 500;
-    animation: fadeInUp 1s ease 0.3s backwards;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Decorative sparkles */
-  .sparkle {
-    display: inline-block;
-    color: #fbbf24;
-    font-size: 20px;
-    animation: sparkleAnim 2s ease-in-out infinite;
-  }
-  .sparkle:nth-child(2) { animation-delay: 0.5s; color: #ec4899; }
-  .sparkle:nth-child(3) { animation-delay: 1s; color: #8b5cf6; }
-
-  @keyframes sparkleAnim {
-    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
-    50% { transform: scale(1.3) rotate(180deg); opacity: 1; }
-  }
-
-  /* Country tag */
-  .country-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 20px;
-    padding: 6px 16px;
-    background: rgba(139, 92, 246, 0.15);
-    border: 1px solid rgba(139, 92, 246, 0.3);
-    border-radius: 20px;
-    color: #c4b5fd;
-    font-size: 13px;
-    font-weight: 500;
-    animation: fadeInUp 1s ease 0.6s backwards, pulse 3s ease-in-out infinite;
-  }
-
-  /* Tech badges */
-  .tech-badges {
-    margin-top: 25px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    animation: fadeInUp 1s ease 0.9s backwards;
-  }
-
-  .tech-badge {
-    padding: 4px 12px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  .scanner-error {
+    background: #fef2f2;
+    border: 2px solid #fecaca;
     border-radius: 12px;
-    color: #94a3b8;
-    font-size: 11px;
-    font-weight: 500;
-    transition: all 0.3s ease;
+    padding: 20px;
+    text-align: center;
+    color: #991b1b;
   }
-  .tech-badge:hover {
-    background: rgba(139, 92, 246, 0.2);
-    border-color: rgba(139, 92, 246, 0.5);
-    color: #e9d5ff;
-    transform: translateY(-2px);
-  }
-
-  /* Divider line */
-  .footer-divider {
-    margin: 30px auto 20px;
-    width: 200px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
-    animation: fadeInUp 1s ease 1.2s backwards;
-  }
-
-  /* Copyright minimal */
-  .copyright {
-    color: #64748b;
-    font-size: 12px;
-    animation: fadeInUp 1s ease 1.5s backwards;
-  }
-
-  /* Mobile responsive */
-  @media (max-width: 640px) {
-    .german-name { font-size: 42px; }
-    .made-by-title { font-size: 12px; letter-spacing: 2px; }
-    .german-subtitle { font-size: 14px; }
+  .scanner-success-info {
+    background: #f0fdf4;
+    border: 2px solid #bbf7d0;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    color: #166534;
+    font-size: 13px;
+    margin-top: 10px;
   }
 </style>
 </head>
@@ -382,8 +151,8 @@
     <div class="card-hover bg-white p-5 rounded-xl shadow-md border-l-4 border-green-600">
       <div class="flex justify-between items-start">
         <div>
-          <p class="text-gray-500 text-sm font-medium">Value Lost (RM)</p>
-          <h2 class="text-3xl font-bold text-green-700 mt-1" id="statLoss">RM 0</h2>
+          <p class="text-gray-500 text-sm font-medium">Value Lost (C$)</p>
+          <h2 class="text-3xl font-bold text-green-700 mt-1" id="statLoss">C$ 0</h2>
         </div>
         <div class="text-3xl">💰</div>
       </div>
@@ -431,8 +200,8 @@
             <th class="px-4 py-3 text-left">Category</th>
             <th class="px-4 py-3 text-right">Size</th>
             <th class="px-4 py-3 text-right">Qty</th>
-            <th class="px-4 py-3 text-right">Unit (RM)</th>
-            <th class="px-4 py-3 text-right">Total (RM)</th>
+            <th class="px-4 py-3 text-right">Unit (C$)</th>
+            <th class="px-4 py-3 text-right">Total (C$)</th>
             <th class="px-4 py-3 text-left">Expiry Date</th>
             <th class="px-4 py-3 text-center">Days</th>
             <th class="px-4 py-3 text-center">Status</th>
@@ -508,7 +277,7 @@
           <input type="number" id="pQty" required min="1" class="form-input" />
         </div>
         <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-1">Unit Price (RM) *</label>
+          <label class="block text-sm font-semibold text-gray-700 mb-1">Unit Price (C$) *</label>
           <input type="number" id="pPrice" required min="0" step="0.01" class="form-input" />
         </div>
         <div class="md:col-span-2">
@@ -535,6 +304,12 @@
       <button onclick="closeScannerModal()" class="text-white text-2xl hover:scale-110">✕</button>
     </div>
     <div class="p-6">
+      <!-- HTTPS Warning Banner -->
+      <div id="httpsWarning" class="hidden mb-3 bg-yellow-50 border-2 border-yellow-300 rounded-lg p-3 text-sm">
+        <p class="font-bold text-yellow-800">⚠️ Camera needs HTTPS</p>
+        <p class="text-yellow-700 text-xs mt-1">Use the manual barcode entry below instead. Camera only works on https:// URLs.</p>
+      </div>
+
       <div id="scannerContainer" class="rounded-lg overflow-hidden bg-gray-900" style="min-height: 300px;">
         <div id="scanner-placeholder" class="flex items-center justify-center h-72 text-white text-center p-4">
           <div>
@@ -551,7 +326,7 @@
       </div>
       <div class="mt-4 text-center text-gray-500 text-sm">— or enter manually —</div>
       <div class="mt-3">
-        <input type="text" id="manualBarcode" placeholder="Enter barcode number..." class="form-input" onkeypress="if(event.key==='Enter'){event.preventDefault();handleManualBarcode();}" />
+        <input type="text" id="manualBarcode" placeholder="Enter barcode number (e.g. 5449000000996)" class="form-input" onkeypress="if(event.key==='Enter'){event.preventDefault();handleManualBarcode();}" />
         <button onclick="handleManualBarcode()" class="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg font-semibold">✅ Submit Barcode</button>
       </div>
     </div>
@@ -621,6 +396,14 @@
               </select>
             </div>
           </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">How many? (Quantity) *</label>
+            <input type="number" id="sQty" required min="1" value="1" class="form-input" oninput="updateTotalPreview()" />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Unit Price (C$) *</label>
+            <input type="number" id="sPrice" required min="0" step="0.01" value="0" class="form-input" oninput="updateTotalPreview()" />
+          </div>
           <div class="md:col-span-2">
             <label class="block text-sm font-semibold text-gray-700 mb-1">Expiry Date (auto: today) *</label>
             <input type="date" id="sExpiry" required class="form-input" />
@@ -637,6 +420,10 @@
             <textarea id="sNotes" rows="2" class="form-input" placeholder="Any extra info..."></textarea>
           </div>
         </div>
+        <div class="bg-blue-50 border border-blue-200 p-3 rounded-lg flex justify-between items-center">
+          <span class="text-sm font-semibold text-gray-700">Total Value:</span>
+          <span class="text-xl font-bold text-blue-700" id="totalPreview">C$ 0.00</span>
+        </div>
         <div class="flex gap-3 pt-3 flex-wrap">
           <button type="submit" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2.5 rounded-lg font-semibold transition min-w-[120px]">💾 Save Product</button>
           <button type="button" onclick="closeScannedProductModal(); setTimeout(openScannerModal, 300);" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2.5 rounded-lg font-semibold transition">🔄 Scan Another</button>
@@ -649,56 +436,7 @@
 
 <div id="toast" class="fixed bottom-5 right-5 hidden bg-green-600 text-white px-6 py-3 rounded-lg shadow-2xl z-50 font-semibold"></div>
 
-<!-- ============ BEAUTIFUL ANIMATED FOOTER ============ -->
-<footer class="footer-animated">
-  <!-- Glowing orbs in background -->
-  <div class="glow-orb orb-1"></div>
-  <div class="glow-orb orb-2"></div>
-  <div class="glow-orb orb-3"></div>
-  
-  <!-- Floating particles -->
-  <div class="footer-particles">
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-  </div>
-  
-  <div class="footer-content">
-    <p class="made-by-title">Crafted with passion</p>
-    
-    <div class="german-name-wrapper">
-      <span class="german-name">GERMAN</span>
-    </div>
-    
-    <p class="german-subtitle">
-      <span class="sparkle">✨</span>
-      Made with care by German
-      <span class="sparkle">✨</span>
-    </p>
-    
-    <div class="country-tag">
-      <span></span>
-      <span></span>
-    </div>
-    
-    <div class="tech-badges">
-      <span class="tech-badge">HTML5</span>
-      <span class="tech-badge">Tailwind CSS</span>
-      <span class="tech-badge">JavaScript</span>
-      <span class="tech-badge">Open Food Facts API</span>
-    </div>
-    
-    <div class="footer-divider"></div>
-    
-    <p class="copyright">© 2025 · All Rights Reserved</p>
-  </div>
-</footer>
+<footer class="text-center py-6 text-gray-500 text-sm">© 2025 ESSO Expiry Tracker Pro | Built with ❤️</footer>
 
 <script>
 // ============== DATA ==============
@@ -724,6 +462,7 @@ function getStatus(expiryDate) {
   return { status: 'FRESH', days: diffDays };
 }
 
+// ============ PARSE QUANTITY ============
 function parseQuantityWithUnit(quantityStr) {
   if (!quantityStr) return { value: '', unit: 'g' };
   const cleaned = String(quantityStr).toLowerCase().replace(/\s+/g, ' ');
@@ -755,72 +494,128 @@ function mapCategory(apiCategories, apiProductName) {
   return 'Other';
 }
 
+// ============ OPEN FOOD FACTS API - IMPROVED ============
 async function lookupProductAPI(barcode) {
   try {
-    const url = `https://world.openfoodfacts.org/api/v2/product/${encodeURIComponent(barcode)}.json?fields=code,product_name,product_name_en,brands,brands_tags,categories,categories_tags,quantity,product_quantity,product_quantity_unit,image_url,image_front_url,image_small_url,image_thumb_url`;
+    // Use v2 API with explicit fields including quantity
+    const url = `https://world.openfoodfacts.org/api/v2/product/${encodeURIComponent(barcode)}.json?fields=code,product_name,product_name_en,product_name_debug,brands,brands_tags,categories,categories_tags,quantity,product_quantity,product_quantity_unit,image_url,image_front_url,image_small_url,image_thumb_url,generic_name`;
+    console.log('🔍 Fetching:', url);
+    
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
+    
     const response = await fetch(url, {
       method: 'GET',
-      headers: { 'Accept': 'application/json' }
+      headers: { 
+        'Accept': 'application/json',
+        'User-Agent': 'ESSOExpiryTracker/1.0'
+      },
+      signal: controller.signal
     });
-    if (!response.ok) return null;
+    clearTimeout(timeoutId);
+    
+    if (!response.ok) {
+      console.error('API HTTP error:', response.status);
+      return null;
+    }
+    
     const data = await response.json();
-    console.log('OFF API Response:', data);
-    if (data.status === 1 && data.product) return data.product;
+    console.log('✅ API Response:', data);
+    
+    if (data.status === 1 && data.product) {
+      return data.product;
+    }
+    console.log('⚠️ Product not found in API');
     return null;
   } catch (error) {
-    console.error('API lookup failed:', error);
+    console.error('❌ API lookup failed:', error);
     return null;
   }
 }
 
 function applyProductData(product) {
-  const name = product.product_name || product.product_name_en || '';
+  console.log('Applying product data:', product);
+  
+  // Name - try multiple fields
+  const name = product.product_name || product.product_name_en || product.generic_name || product.product_name_debug || '';
+  console.log('Name found:', name);
+  
+  // Brand
   let brand = '';
-  if (product.brands) {
+  if (product.brands && product.brands.trim()) {
     brand = product.brands.split(',')[0].trim();
   } else if (product.brands_tags && product.brands_tags.length > 0) {
-    brand = product.brands_tags[0].replace(/^en:/, '').replace(/-/g, ' ');
+    brand = product.brands_tags[0].replace(/^en:/, '').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
   }
+  console.log('Brand found:', brand);
+  
+  // Categories
   const apiCategories = product.categories || (product.categories_tags ? product.categories_tags.join(',') : '');
   const category = mapCategory(apiCategories, name);
+  
+  // Quantity (size + unit) - IMPROVED PARSING
   let qtyData = parseQuantityWithUnit(product.quantity || '');
+  console.log('Parsed from quantity:', qtyData);
+  
   if (!qtyData.value && product.product_quantity) {
     const unit = product.product_quantity_unit || 'g';
-    let value = parseFloat(product.product_quantity);
-    if (unit === 'g' || unit === 'ml') {
+    const value = parseFloat(product.product_quantity);
+    if (!isNaN(value) && value > 0) {
       qtyData = { value: value, unit: unit };
     }
+    console.log('Used product_quantity fallback:', qtyData);
   }
+  
+  // Image
   const imageUrl = product.image_url || product.image_front_url || product.image_small_url || product.image_thumb_url || '';
+  console.log('Image URL:', imageUrl);
 
-  if (name) document.getElementById('sName').value = name;
+  // APPLY to form
+  if (name) {
+    document.getElementById('sName').value = name;
+  } else {
+    document.getElementById('sName').placeholder = 'No name in database - enter manually';
+  }
+  
   if (brand) document.getElementById('sBrand').value = brand;
   if (category) document.getElementById('sCategory').value = category;
+  
   if (qtyData.value) {
     document.getElementById('sGrams').value = qtyData.value;
     document.getElementById('sUnit').value = qtyData.unit;
+  } else {
+    document.getElementById('sGrams').placeholder = 'Enter amount';
   }
+  
   if (imageUrl) {
     const img = document.getElementById('productThumb');
     img.src = imageUrl;
     img.classList.remove('hidden');
     document.getElementById('productThumbPlaceholder').classList.add('hidden');
   }
+  
+  updateTotalPreview();
+  
   return { name, brand, category, value: qtyData.value, unit: qtyData.unit, imageUrl };
 }
 
 function resetScannedForm() {
   document.getElementById('sName').value = '';
+  document.getElementById('sName').placeholder = 'Product Name';
   document.getElementById('sBrand').value = '';
   document.getElementById('sCategory').value = '';
   document.getElementById('sGrams').value = '';
+  document.getElementById('sGrams').placeholder = 'Amount';
   document.getElementById('sUnit').value = 'g';
+  document.getElementById('sQty').value = '1';
+  document.getElementById('sPrice').value = '0';
   document.getElementById('sNotes').value = '';
   document.getElementById('sExpiry').value = getTodayISO();
   const img = document.getElementById('productThumb');
   img.classList.add('hidden');
   img.removeAttribute('src');
   document.getElementById('productThumbPlaceholder').classList.remove('hidden');
+  updateTotalPreview();
 }
 
 function renderTable() {
@@ -877,7 +672,7 @@ function updateStats() {
   document.getElementById('statTotal').textContent = total;
   document.getElementById('statExpired').textContent = expired;
   document.getElementById('statSoon').textContent = soon;
-  document.getElementById('statLoss').textContent = 'RM ' + loss.toFixed(2);
+  document.getElementById('statLoss').textContent = 'C$ ' + loss.toFixed(2);
   updateCategoryBreakdown();
 }
 
@@ -902,7 +697,7 @@ function updateCategoryBreakdown() {
       <h4 class="font-bold text-gray-800">${cat}</h4>
       <p class="text-sm text-gray-600 mt-1">Items: <span class="font-bold">${data.count}</span></p>
       <p class="text-sm text-gray-600">Qty: <span class="font-bold">${data.qty}</span></p>
-      <p class="text-sm text-red-600 font-bold">Loss: RM ${data.value.toFixed(2)}</p>
+      <p class="text-sm text-red-600 font-bold">Loss: C$ ${data.value.toFixed(2)}</p>
     </div>`).join('');
 }
 
@@ -969,38 +764,113 @@ function deleteProduct(id) {
   }
 }
 
-// ============== SCANNER ==============
+// ============== SCANNER - IMPROVED WITH HTTPS CHECK ==============
 let html5QrcodeScanner = null;
 let lastScannedCode = '';
+
+function isSecureContext() {
+  // Camera only works on HTTPS or localhost
+  return window.isSecureContext || location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+}
 
 function openScannerModal() {
   document.getElementById('scannerModal').classList.add('active');
   document.getElementById('manualBarcode').value = '';
+  
+  // Show HTTPS warning if not on secure context
+  if (!isSecureContext()) {
+    document.getElementById('httpsWarning').classList.remove('hidden');
+  } else {
+    document.getElementById('httpsWarning').classList.add('hidden');
+  }
+  
   setTimeout(() => document.getElementById('manualBarcode').focus(), 300);
 }
+
 function closeScannerModal() {
   stopScanner();
   document.getElementById('scannerModal').classList.remove('active');
 }
+
 function startScanner() {
+  // Check if secure context
+  if (!isSecureContext()) {
+    showToast('❌ Camera needs HTTPS. Use manual entry below.');
+    document.getElementById('httpsWarning').classList.remove('hidden');
+    document.getElementById('manualBarcode').focus();
+    return;
+  }
+  
+  // Check if getUserMedia is supported
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    showToast('❌ Camera not supported on this browser');
+    return;
+  }
+  
   document.getElementById('scanner-placeholder').style.display = 'none';
   document.getElementById('reader').style.display = 'block';
   document.getElementById('startScanBtn').classList.add('hidden');
   document.getElementById('stopScanBtn').classList.remove('hidden');
-  html5QrcodeScanner = new Html5Qrcode("reader");
-  html5QrcodeScanner.start({ facingMode: "environment" }, { fps: 10, qrbox: { width: 250, height: 150 } }, onScanSuccess, onScanFailure)
-    .catch(err => { showToast('❌ Camera error: ' + err); stopScanner(); });
+  
+  try {
+    html5QrcodeScanner = new Html5Qrcode("reader");
+    html5QrcodeScanner.start(
+      { facingMode: "environment" },
+      { 
+        fps: 10, 
+        qrbox: function(viewfinderWidth, viewfinderHeight) {
+          let minEdgePercentage = 0.7;
+          let minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
+          let qrboxSize = Math.floor(minEdgeSize * minEdgePercentage);
+          return { width: qrboxSize, height: Math.floor(qrboxSize * 0.6) };
+        },
+        aspectRatio: 1.333
+      },
+      onScanSuccess,
+      onScanFailure
+    ).catch(err => {
+      console.error('Camera start error:', err);
+      let errorMsg = 'Camera error';
+      if (err && err.toString) {
+        if (err.toString().includes('Permission')) errorMsg = 'Camera permission denied. Please allow camera access.';
+        else if (err.toString().includes('NotFound')) errorMsg = 'No camera found on this device.';
+        else if (err.toString().includes('NotAllowed')) errorMsg = 'Camera access blocked. Use manual entry below.';
+        else if (err.toString().includes('secure')) errorMsg = 'Camera needs HTTPS. Use manual entry below.';
+        else errorMsg = 'Camera error: ' + err;
+      }
+      showToast('❌ ' + errorMsg);
+      stopScanner();
+      document.getElementById('httpsWarning').classList.remove('hidden');
+    });
+  } catch (err) {
+    console.error('Scanner init error:', err);
+    showToast('❌ Failed to start camera: ' + err.message);
+    stopScanner();
+  }
 }
+
 function stopScanner() {
   if (html5QrcodeScanner) {
-    html5QrcodeScanner.stop().then(() => { html5QrcodeScanner.clear(); html5QrcodeScanner = null; })
-      .catch(err => console.log(err))
-      .finally(() => {
+    try {
+      html5QrcodeScanner.stop().then(() => {
+        try { html5QrcodeScanner.clear(); } catch(e) {}
+        html5QrcodeScanner = null;
+      }).catch(err => {
+        console.log('Stop error:', err);
+        html5QrcodeScanner = null;
+      }).finally(() => {
         document.getElementById('reader').style.display = 'none';
         document.getElementById('scanner-placeholder').style.display = 'flex';
         document.getElementById('startScanBtn').classList.remove('hidden');
         document.getElementById('stopScanBtn').classList.add('hidden');
       });
+    } catch (err) {
+      html5QrcodeScanner = null;
+      document.getElementById('reader').style.display = 'none';
+      document.getElementById('scanner-placeholder').style.display = 'flex';
+      document.getElementById('startScanBtn').classList.remove('hidden');
+      document.getElementById('stopScanBtn').classList.add('hidden');
+    }
   } else {
     document.getElementById('reader').style.display = 'none';
     document.getElementById('scanner-placeholder').style.display = 'flex';
@@ -1008,14 +878,18 @@ function stopScanner() {
     document.getElementById('stopScanBtn').classList.add('hidden');
   }
 }
+
 function onScanSuccess(decodedText) {
+  console.log('Scanned:', decodedText);
   if (decodedText === lastScannedCode) return;
   lastScannedCode = decodedText;
   playBeep();
   stopScanner();
   setTimeout(() => handleScannedBarcode(decodedText), 300);
 }
+
 function onScanFailure() {}
+
 function playBeep() {
   try {
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1029,13 +903,17 @@ function playBeep() {
     oscillator.stop(audioCtx.currentTime + 0.1);
   } catch(e) {}
 }
+
 function handleManualBarcode() {
   const code = document.getElementById('manualBarcode').value.trim();
   if (!code) { showToast('⚠️ Please enter a barcode'); return; }
-  handleScannedBarcode(code);
+  // Clean barcode - remove spaces, dashes
+  const cleanCode = code.replace(/[\s-]/g, '');
+  handleScannedBarcode(cleanCode);
 }
 
 async function handleScannedBarcode(barcode) {
+  console.log('=== Processing barcode:', barcode, '===');
   lastScannedCode = barcode;
   currentScannedBarcode = barcode;
   document.getElementById('scannedUPC').value = barcode;
@@ -1043,7 +921,7 @@ async function handleScannedBarcode(barcode) {
   resetScannedForm();
 
   const infoEl = document.getElementById('scannedProductInfo');
-  infoEl.innerHTML = '<span class="text-blue-600">🔍 Searching databases...</span>';
+  infoEl.innerHTML = '<span class="text-blue-600">🔍 Searching Open Food Facts...</span>';
 
   closeScannerModal();
   setTimeout(() => {
@@ -1058,15 +936,15 @@ async function handleScannedBarcode(barcode) {
     if (product) {
       const data = applyProductData(product);
       if (data.name) {
-        infoEl.innerHTML = '<span class="text-green-600 font-semibold">✅ Found in Open Food Facts!</span><br><span class="text-xs text-gray-600">Auto-filled. Confirm size & expiry.</span>';
+        infoEl.innerHTML = '<span class="text-green-600 font-semibold">✅ Found in Open Food Facts!</span><br><span class="text-xs text-gray-600">Auto-filled. Set qty, price & expiry.</span>';
         showToast('✅ Found: ' + data.name);
       } else {
-        infoEl.innerHTML = '<span class="text-yellow-600 font-semibold">⚠️ Product found but no name.</span><br><span class="text-xs text-gray-600">Please enter details manually.</span>';
-        showToast('⚠️ Found product, but no name.');
+        infoEl.innerHTML = '<span class="text-yellow-600 font-semibold">⚠️ Found but no name.</span><br><span class="text-xs text-gray-600">Enter name manually.</span>';
+        showToast('⚠️ Found product, but no name. Enter manually.');
       }
     } else {
-      infoEl.innerHTML = '<span class="text-orange-600 font-semibold">⚠️ Product not in database.</span><br><span class="text-xs text-gray-600">You can add it to Open Food Facts at world.openfoodfacts.org. For now, enter details manually.</span>';
-      showToast('⚠️ Not found. Enter details manually.');
+      infoEl.innerHTML = '<span class="text-orange-600 font-semibold">⚠️ Not in database.</span><br><span class="text-xs text-gray-600">Add at world.openfoodfacts.org. Enter details manually.</span>';
+      showToast('⚠️ Not found. Enter all details manually.');
     }
   } catch (err) {
     document.getElementById('apiLoading').classList.add('hidden');
@@ -1115,9 +993,15 @@ function setQuickExpiry(daysOffset) {
   document.getElementById('sExpiry').value = `${year}-${month}-${day}`;
 }
 
+function updateTotalPreview() {
+  const qty = parseFloat(document.getElementById('sQty').value) || 0;
+  const price = parseFloat(document.getElementById('sPrice').value) || 0;
+  document.getElementById('totalPreview').textContent = 'C$ ' + (qty * price).toFixed(2);
+}
+
 function exportCSV() {
   if (products.length === 0) { showToast('⚠️ No data to export'); return; }
-  let csv = 'No,UPC,Product Name,Brand,Category,Size,Qty,Unit Price,Total Value,Expiry Date,Days,Status,Notes\n';
+  let csv = 'No,UPC,Product Name,Brand,Category,Size,Qty,Unit Price (C$),Total Value (C$),Expiry Date,Days,Status,Notes\n';
   products.forEach((p, i) => {
     const s = getStatus(p.expiry);
     csv += `${i+1},"${p.upc||''}","${p.name}","${p.brand}","${p.category}","${p.grams} ${p.unit||'g'}",${p.qty},${p.price},${(p.qty*p.price).toFixed(2)},${p.expiry},${s.days},${s.status},"${p.notes||''}"\n`;
@@ -1153,6 +1037,7 @@ function loadSampleData() {
   renderTable();
   showToast('🎲 Sample data loaded!');
 }
+
 function clearAllData() {
   if (confirm('⚠️ Delete ALL products? This cannot be undone!')) {
     products = []; saveToStorage(); renderTable();
@@ -1185,7 +1070,7 @@ function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.remove('hidden');
-  setTimeout(() => t.classList.add('hidden'), 3000);
+  setTimeout(() => t.classList.add('hidden'), 3500);
 }
 function updateDateTime() {
   const now = new Date();
