@@ -308,7 +308,7 @@
       <div class="text-4xl">🏪</div>
       <div>
         <h1 class="text-2xl font-bold">ESSO Expiry Tracker Pro</h1>
-        <p class="text-sm opacity-90">Smart Inventory Management with Barcode Scanner</p>
+        <p class="text-sm opacity-90">Smart Inventory Management with Multi-DB Scanner</p>
       </div>
     </div>
     <div class="text-right">
@@ -427,6 +427,7 @@
   </div>
 </div>
 
+<!-- Manual Add Modal -->
 <div id="productModal" class="modal">
   <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
     <div class="gradient-bg text-white p-5 rounded-t-2xl flex justify-between items-center">
@@ -460,6 +461,9 @@
             <option value="Dairy">Dairy</option>
             <option value="Frozen">Frozen</option>
             <option value="Confectionery">Confectionery</option>
+            <option value="Cigarettes">Cigarettes</option>
+            <option value="Vape">Vape</option>
+            <option value="Smoke">Smoke</option>
             <option value="Other">Other</option>
           </select>
         </div>
@@ -500,6 +504,7 @@
   </div>
 </div>
 
+<!-- Scanner Modal -->
 <div id="scannerModal" class="modal">
   <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4">
     <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-5 rounded-t-2xl flex justify-between items-center">
@@ -528,13 +533,14 @@
       </div>
       <div class="mt-4 text-center text-gray-500 text-sm">— or enter manually —</div>
       <div class="mt-3">
-        <input type="text" id="manualBarcode" placeholder="Enter barcode number (e.g. 5449000000996)" class="form-input" onkeypress="if(event.key==='Enter'){event.preventDefault();handleManualBarcode();}" />
+        <input type="text" id="manualBarcode" placeholder="Enter barcode number" class="form-input" onkeypress="if(event.key==='Enter'){event.preventDefault();handleManualBarcode();}" />
         <button onclick="handleManualBarcode()" class="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg font-semibold">✅ Submit Barcode</button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Scanned Product Details Modal -->
 <div id="scannedProductModal" class="modal">
   <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
     <div class="bg-gradient-to-r from-green-600 to-emerald-600 text-white p-5 rounded-t-2xl flex justify-between items-center">
@@ -556,7 +562,7 @@
 
       <div id="apiLoading" class="hidden text-center py-4 bg-blue-50 rounded-lg mb-4 border border-blue-200">
         <div class="spinner"></div>
-        <p class="text-sm text-blue-700 mt-2 font-semibold">🔍 Searching Open Food Facts database...</p>
+        <p class="text-sm text-blue-700 mt-2 font-semibold">🔍 Searching Retail Databases (Food, Beauty, UPC)...</p>
         <p class="text-xs text-blue-500 mt-1">This may take a few seconds</p>
       </div>
 
@@ -583,6 +589,9 @@
               <option value="Dairy">Dairy</option>
               <option value="Frozen">Frozen</option>
               <option value="Confectionery">Confectionery</option>
+              <option value="Cigarettes">Cigarettes</option>
+              <option value="Vape">Vape</option>
+              <option value="Smoke">Smoke</option>
               <option value="Other">Other</option>
             </select>
           </div>
@@ -640,51 +649,34 @@
 
 <!-- ============ ANIMATED FOOTER - MADE BY GERMAN ============ -->
 <footer class="footer-animated">
-  <!-- Glowing orbs in background -->
   <div class="glow-orb orb-1"></div>
   <div class="glow-orb orb-2"></div>
   <div class="glow-orb orb-3"></div>
   
-  <!-- Floating particles -->
   <div class="footer-particles">
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
   </div>
   
   <div class="footer-content">
     <p class="made-by-title">Crafted with passion</p>
-    
     <div class="german-name-wrapper">
       <span class="german-name">GERMAN</span>
     </div>
-    
     <p class="german-subtitle">
-      <span class="sparkle">✨</span>
-      Made with care by German
-      <span class="sparkle">✨</span>
+      <span class="sparkle">✨</span> Made with care by German <span class="sparkle">✨</span>
     </p>
-    
     <div class="country-tag">
-      <span></span>
-      <span></span>
+      <span>🇨🇦</span> <span>Canada</span>
     </div>
-    
     <div class="tech-badges">
       <span class="tech-badge">HTML5</span>
       <span class="tech-badge">Tailwind CSS</span>
       <span class="tech-badge">JavaScript</span>
-      <span class="tech-badge">Open Food Facts API</span>
+      <span class="tech-badge">Multi-DB API</span>
     </div>
-    
     <div class="footer-divider"></div>
-    
     <p class="copyright">© 2025 · All Rights Reserved</p>
   </div>
 </footer>
@@ -734,58 +726,82 @@ function parseQuantityWithUnit(quantityStr) {
 function mapCategory(apiCategories, apiProductName) {
   const text = ((apiCategories || '') + ' ' + (apiProductName || '')).toLowerCase();
   if (text.match(/noodle|pasta|instant|maggi|vermicelli|bihun|mee/)) return 'Noodles';
-  if (text.match(/beverage|drink|soda|juice|water|cola|tea|coffee|mineral|syrup|oil/)) return 'Beverages';
+  if (text.match(/beverage|drink|soda|juice|water|cola|tea|coffee|mineral|syrup/)) return 'Beverages';
   if (text.match(/snack|chip|crisp|biscuit|cookie|wafer|cracker/)) return 'Snacks';
   if (text.match(/cooking|flour|sugar|salt|rice/)) return 'Cooking';
   if (text.match(/sauce|ketchup|soy|mayo|chili|vinegar|chilli/)) return 'Sauces';
   if (text.match(/dairy|milk|yogurt|yoghurt|cheese|butter|cream/)) return 'Dairy';
   if (text.match(/frozen|ice cream|ice-cream/)) return 'Frozen';
   if (text.match(/chocolate|candy|sweet|confectionery|gum/)) return 'Confectionery';
+  if (text.match(/cigarette|tobacco|marlboro|dundas|smoke/)) return 'Cigarettes';
+  if (text.match(/vape|e-cigarette|juul|disposable|pod/)) return 'Vape';
   return 'Other';
 }
 
+// ============== MULTI-DATABASE API LOOKUP ==============
 async function lookupProductAPI(barcode) {
   try {
-    const url = `https://world.openfoodfacts.org/api/v2/product/${encodeURIComponent(barcode)}.json?fields=code,product_name,product_name_en,product_name_debug,brands,brands_tags,categories,categories_tags,quantity,product_quantity,product_quantity_unit,image_url,image_front_url,image_small_url,image_thumb_url,generic_name`;
-    console.log('🔍 Fetching:', url);
-    
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000);
-    
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: { 
-        'Accept': 'application/json',
-        'User-Agent': 'ESSOExpiryTracker/1.0'
-      },
-      signal: controller.signal
-    });
-    clearTimeout(timeoutId);
-    
-    if (!response.ok) {
-      console.error('API HTTP error:', response.status);
-      return null;
+    // 1. Open Food Facts (Best for groceries, Superstore/Walmart food items)
+    let url = `https://world.openfoodfacts.org/api/v2/product/${encodeURIComponent(barcode)}.json?fields=code,product_name,product_name_en,product_name_debug,brands,brands_tags,categories,categories_tags,quantity,product_quantity,product_quantity_unit,image_url,image_front_url,image_small_url,image_thumb_url,generic_name`;
+    let response = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/json', 'User-Agent': 'ESSOExpiryTracker/1.0' } });
+    if (response.ok) {
+      let data = await response.json();
+      if (data.status === 1 && data.product) return { ...data.product, source: 'Open Food Facts' };
     }
-    
-    const data = await response.json();
-    console.log('✅ API Response:', data);
-    
-    if (data.status === 1 && data.product) {
-      return data.product;
+
+    // 2. Open Beauty Facts (Best for Vape, Smoke, Cosmetics, some non-food retail)
+    url = `https://world.openbeautyfacts.org/api/v0/product/${encodeURIComponent(barcode)}.json?fields=code,product_name,product_name_en,brands,categories,quantity,image_url,image_front_url`;
+    response = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/json', 'User-Agent': 'ESSOExpiryTracker/1.0' } });
+    if (response.ok) {
+      let data = await response.json();
+      if (data.status === 1 && data.product) return { ...data.product, source: 'Open Beauty Facts' };
     }
-    console.log('⚠️ Product not found in API');
-    return null;
+
+    // 3. UPC Item DB (Free tier, catches general Walmart/Superstore non-food SKUs)
+    url = `https://api.upcitemdb.com/prod/trial/lookup?upc=${encodeURIComponent(barcode)}`;
+    response = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/json' } });
+    if (response.ok) {
+      let data = await response.json();
+      if (data.items && data.items.length > 0) {
+        const item = data.items[0];
+        return {
+          code: barcode,
+          product_name: item.title || item.description || `Item ${barcode}`,
+          product_name_en: item.title || item.description,
+          brands: item.brand || 'Unknown Brand',
+          categories: item.category || '',
+          quantity: '',
+          image_url: item.images && item.images.length > 0 ? item.images[0] : '',
+          source: 'UPC Item DB'
+        };
+      }
+    }
+
+    // 4. Ultimate Fallback: Pre-fill generic data so user doesn't start from scratch
+    return {
+      code: barcode,
+      product_name: `Scanned Item (${barcode})`,
+      product_name_en: `Scanned Item`,
+      brands: 'Unknown Brand',
+      categories: '',
+      quantity: '',
+      image_url: '',
+      source: 'Generic Fallback'
+    };
   } catch (error) {
     console.error('❌ API lookup failed:', error);
-    return null;
+    return {
+      code: barcode,
+      product_name: `Scanned Item (${barcode})`,
+      brands: 'Unknown',
+      quantity: '',
+      source: 'Error Fallback'
+    };
   }
 }
 
 function applyProductData(product) {
-  console.log('Applying product data:', product);
-  
   const name = product.product_name || product.product_name_en || product.generic_name || product.product_name_debug || '';
-  console.log('Name found:', name);
   
   let brand = '';
   if (product.brands && product.brands.trim()) {
@@ -793,13 +809,11 @@ function applyProductData(product) {
   } else if (product.brands_tags && product.brands_tags.length > 0) {
     brand = product.brands_tags[0].replace(/^en:/, '').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
   }
-  console.log('Brand found:', brand);
   
   const apiCategories = product.categories || (product.categories_tags ? product.categories_tags.join(',') : '');
   const category = mapCategory(apiCategories, name);
   
   let qtyData = parseQuantityWithUnit(product.quantity || '');
-  console.log('Parsed from quantity:', qtyData);
   
   if (!qtyData.value && product.product_quantity) {
     const unit = product.product_quantity_unit || 'g';
@@ -807,25 +821,27 @@ function applyProductData(product) {
     if (!isNaN(value) && value > 0) {
       qtyData = { value: value, unit: unit };
     }
-    console.log('Used product_quantity fallback:', qtyData);
   }
   
   const imageUrl = product.image_url || product.image_front_url || product.image_small_url || product.image_thumb_url || '';
-  console.log('Image URL:', imageUrl);
 
-  if (name) {
+  if (name && name !== `Scanned Item (${product.code})`) {
     document.getElementById('sName').value = name;
   } else {
-    document.getElementById('sName').placeholder = 'No name in database - enter manually';
+    document.getElementById('sName').value = '';
+    document.getElementById('sName').placeholder = 'Enter product name manually';
   }
   
-  if (brand) document.getElementById('sBrand').value = brand;
-  if (category) document.getElementById('sCategory').value = category;
+  if (brand && brand !== 'Unknown Brand') document.getElementById('sBrand').value = brand;
+  else document.getElementById('sBrand').value = '';
+  
+  if (category && category !== 'Other') document.getElementById('sCategory').value = category;
   
   if (qtyData.value) {
     document.getElementById('sGrams').value = qtyData.value;
     document.getElementById('sUnit').value = qtyData.unit;
   } else {
+    document.getElementById('sGrams').value = '';
     document.getElementById('sGrams').placeholder = 'Enter amount';
   }
   
@@ -837,7 +853,6 @@ function applyProductData(product) {
   }
   
   updateTotalPreview();
-  
   return { name, brand, category, value: qtyData.value, unit: qtyData.unit, imageUrl };
 }
 
@@ -996,9 +1011,6 @@ function saveProduct(e) {
   renderTable();
 }
 
-// ==========================================
-// FIXED: Added the missing saveScannedProduct function
-// ==========================================
 function saveScannedProduct(e) {
   e.preventDefault();
   const data = {
@@ -1015,7 +1027,6 @@ function saveScannedProduct(e) {
     notes: document.getElementById('sNotes').value
   };
 
-  // Basic validation
   if (!data.name || !data.brand || !data.category || isNaN(data.grams) || isNaN(data.qty) || isNaN(data.price) || !data.expiry) {
     showToast('⚠️ Please fill all required fields');
     return;
@@ -1102,10 +1113,9 @@ function startScanner() {
       console.error('Camera start error:', err);
       let errorMsg = 'Camera error';
       if (err && err.toString) {
-        if (err.toString().includes('Permission')) errorMsg = 'Camera permission denied. Please allow camera access.';
-        else if (err.toString().includes('NotFound')) errorMsg = 'No camera found on this device.';
-        else if (err.toString().includes('NotAllowed')) errorMsg = 'Camera access blocked. Use manual entry below.';
-        else if (err.toString().includes('secure')) errorMsg = 'Camera needs HTTPS. Use manual entry below.';
+        if (err.toString().includes('Permission')) errorMsg = 'Camera permission denied.';
+        else if (err.toString().includes('NotFound')) errorMsg = 'No camera found.';
+        else if (err.toString().includes('NotAllowed')) errorMsg = 'Camera access blocked.';
         else errorMsg = 'Camera error: ' + err;
       }
       showToast('❌ ' + errorMsg);
@@ -1125,10 +1135,7 @@ function stopScanner() {
       html5QrcodeScanner.stop().then(() => {
         try { html5QrcodeScanner.clear(); } catch(e) {}
         html5QrcodeScanner = null;
-      }).catch(err => {
-        console.log('Stop error:', err);
-        html5QrcodeScanner = null;
-      }).finally(() => {
+      }).catch(() => { html5QrcodeScanner = null; }).finally(() => {
         document.getElementById('reader').style.display = 'none';
         document.getElementById('scanner-placeholder').style.display = 'flex';
         document.getElementById('startScanBtn').classList.remove('hidden');
@@ -1150,7 +1157,6 @@ function stopScanner() {
 }
 
 function onScanSuccess(decodedText) {
-  console.log('Scanned:', decodedText);
   if (decodedText === lastScannedCode) return;
   lastScannedCode = decodedText;
   playBeep();
@@ -1182,7 +1188,6 @@ function handleManualBarcode() {
 }
 
 async function handleScannedBarcode(barcode) {
-  console.log('=== Processing barcode:', barcode, '===');
   lastScannedCode = barcode;
   currentScannedBarcode = barcode;
   document.getElementById('scannedUPC').value = barcode;
@@ -1190,7 +1195,7 @@ async function handleScannedBarcode(barcode) {
   resetScannedForm();
 
   const infoEl = document.getElementById('scannedProductInfo');
-  infoEl.innerHTML = '<span class="text-blue-600">🔍 Searching Open Food Facts...</span>';
+  infoEl.innerHTML = '<span class="text-blue-600">🔍 Searching Retail Databases...</span>';
 
   closeScannerModal();
   setTimeout(() => {
@@ -1202,18 +1207,13 @@ async function handleScannedBarcode(barcode) {
     const product = await lookupProductAPI(barcode);
     document.getElementById('apiLoading').classList.add('hidden');
 
-    if (product) {
-      const data = applyProductData(product);
-      if (data.name) {
-        infoEl.innerHTML = '<span class="text-green-600 font-semibold">✅ Found in Open Food Facts!</span><br><span class="text-xs text-gray-600">Auto-filled. Set qty, price & expiry.</span>';
-        showToast('✅ Found: ' + data.name);
-      } else {
-        infoEl.innerHTML = '<span class="text-yellow-600 font-semibold">⚠️ Found but no name.</span><br><span class="text-xs text-gray-600">Enter name manually.</span>';
-        showToast('⚠️ Found product, but no name. Enter manually.');
-      }
+    if (product.source === 'Generic Fallback' || product.source === 'Error Fallback') {
+      infoEl.innerHTML = '<span class="text-orange-600 font-semibold">⚠️ Not found in databases.</span><br><span class="text-xs text-gray-600">Pre-filled barcode. Please enter details manually.</span>';
+      showToast('⚠️ Not found. Enter details manually.');
     } else {
-      infoEl.innerHTML = '<span class="text-orange-600 font-semibold">⚠️ Not in database.</span><br><span class="text-xs text-gray-600">Add at world.openfoodfacts.org. Enter details manually.</span>';
-      showToast('⚠️ Not found. Enter all details manually.');
+      applyProductData(product);
+      infoEl.innerHTML = `<span class="text-green-600 font-semibold">✅ Found via ${product.source}!</span><br><span class="text-xs text-gray-600">Auto-filled. Verify qty, price & expiry.</span>`;
+      showToast('✅ Found: ' + (product.product_name || 'Item'));
     }
   } catch (err) {
     document.getElementById('apiLoading').classList.add('hidden');
@@ -1229,19 +1229,17 @@ async function retryAPILookup() {
   document.getElementById('apiLoading').classList.remove('hidden');
   const infoEl = document.getElementById('scannedProductInfo');
   infoEl.innerHTML = '<span class="text-blue-600">🔍 Re-searching...</span>';
+  
   const product = await lookupProductAPI(currentScannedBarcode);
   document.getElementById('apiLoading').classList.add('hidden');
-  if (product) {
-    const data = applyProductData(product);
-    if (data.name) {
-      infoEl.innerHTML = '<span class="text-green-600 font-semibold">✅ Found in Open Food Facts!</span>';
-      showToast('✅ Found: ' + data.name);
-    } else {
-      infoEl.innerHTML = '<span class="text-yellow-600 font-semibold">⚠️ Found but no name.</span>';
-    }
-  } else {
+  
+  if (product.source === 'Generic Fallback' || product.source === 'Error Fallback') {
     infoEl.innerHTML = '<span class="text-orange-600 font-semibold">⚠️ Still not found.</span>';
     showToast('⚠️ Product not found anywhere');
+  } else {
+    applyProductData(product);
+    infoEl.innerHTML = `<span class="text-green-600 font-semibold">✅ Found via ${product.source}!</span>`;
+    showToast('✅ Found: ' + (product.product_name || 'Item'));
   }
 }
 
@@ -1289,13 +1287,8 @@ function loadSampleData() {
     { name: 'Maggi Curry', brand: 'Maggi', category: 'Noodles', grams: 75, unit: 'g', qty: 50, price: 1.50, daysFromNow: -45, upc: '9556001234567' },
     { name: 'Coca-Cola Original', brand: 'Coca-Cola', category: 'Beverages', grams: 325, unit: 'ml', qty: 24, price: 2.00, daysFromNow: -10, upc: '9556001234569' },
     { name: "Lay's Classic", brand: "Lay's", category: 'Snacks', grams: 50, unit: 'g', qty: 30, price: 2.50, daysFromNow: 15, upc: '9556001234574' },
-    { name: 'Milo Powder', brand: 'Nestle', category: 'Beverages', grams: 1000, unit: 'g', qty: 10, price: 25.00, daysFromNow: 90, upc: '9556001234572' },
-    { name: 'Cooking Oil', brand: 'Saji', category: 'Cooking', grams: 1, unit: 'L', qty: 8, price: 18.00, daysFromNow: 120, upc: '9556001234579' },
-    { name: 'Soy Sauce', brand: 'Maggi', category: 'Sauces', grams: 340, unit: 'ml', qty: 20, price: 5.00, daysFromNow: -5, upc: '9556001234580' },
-    { name: 'Fresh Milk', brand: 'Dutch Lady', category: 'Dairy', grams: 1, unit: 'L', qty: 12, price: 7.50, daysFromNow: 7, upc: '9556001234578' },
-    { name: 'Mineral Water', brand: 'Spritzer', category: 'Beverages', grams: 1.5, unit: 'L', qty: 24, price: 1.50, daysFromNow: 180, upc: '9556001234585' },
-    { name: 'Orange Juice', brand: 'F&N', category: 'Beverages', grams: 1, unit: 'L', qty: 10, price: 6.50, daysFromNow: -3, upc: '9556001234586' },
-    { name: 'KitKat', brand: 'Nestle', category: 'Confectionery', grams: 35, unit: 'g', qty: 60, price: 1.80, daysFromNow: -20, upc: '9556001234581' },
+    { name: 'Vape Disposable 5000', brand: 'Elfbar', category: 'Vape', grams: 15, unit: 'g', qty: 10, price: 25.00, daysFromNow: 180, upc: '6941234567890' },
+    { name: 'Marlboro Red 200s', brand: 'Marlboro', category: 'Cigarettes', grams: 200, unit: 'g', qty: 5, price: 18.00, daysFromNow: 365, upc: '5412345678901' },
   ];
   products = samples.map((s, i) => {
     const expiry = new Date(today);
